@@ -14,7 +14,12 @@ pipeline {
             }
         }
     }
-	stage('Building image') {
+	stage('Cloning Git') {
+      steps {
+        git 'https://github.com/oussama24bessaad/node-todo-frontend.git'
+      }
+    }
+    stage('Building image') {
       steps{
         script {
           docker.build registry + ":$BUILD_NUMBER"
