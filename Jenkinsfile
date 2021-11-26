@@ -1,4 +1,9 @@
 pipeline {
+	
+	environment {
+    registry = "oussama24/pipeline_cicd"
+    registryCredential = 'dockerhub'
+  }
     agent any
 
     stages {
@@ -8,5 +13,12 @@ pipeline {
 	sh 'npm run build'
             }
         }
+    }
+	stage('Building image') {
+      steps{
+        script {
+          docker.build registry + ":$BUILD_NUMBER"
+        }
+      }
     }
 }
